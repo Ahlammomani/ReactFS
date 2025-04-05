@@ -1,9 +1,0 @@
-{
- "development": {
-      "username": "postgres",
-      "password": "ahlam12345",
-      "database": "fruitandseeds_db",
-      "host": "localhost",
-      "dialect": "postgres"
-    }
-}
