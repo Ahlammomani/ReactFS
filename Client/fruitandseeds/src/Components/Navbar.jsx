@@ -24,12 +24,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-[#EDE8DC] border-b border-[#E7CCCC] shadow-sm">
+    <nav className="bg-[#FCF8F3] border-b border-[#E7CCCC] shadow-sm">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         {/* Logo Section */}
         <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <img src={logo} className="h-20" alt="Logo" />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap text-[#A5B68D]">FruitandSeeds</span>
+          <span className="self-center text-2xl font-semibold whitespace-nowrap text-[#97BE5A]">FruitandSeeds</span>
         </Link>
         
         {/* User Profile / Join Us Button Section */}
@@ -134,7 +134,7 @@ const Navbar = () => {
             <li>
               <Link 
                 to="/contactus" 
-                className="block py-2 px-3 text-[#A5B68D] rounded-lg hover:bg-[#E7CCCC] md:hover:bg-transparent md:hover:text-[#E7CCCC] md:p-0"
+                className="block py-2 px-3 text-[#97BE5A] rounded-lg hover:bg-[#E7CCCC] md:hover:bg-transparent md:hover:text-[#E7CCCC] md:p-0"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Get in Touch
