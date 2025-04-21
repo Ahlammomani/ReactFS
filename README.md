@@ -20,7 +20,7 @@ Fruit and Seeds is a healthy dessert e-commerce platform that offers homemade, g
 
 - 📄 [Fruit and Seeds – Project Documentation](https://drive.google.com/file/d/19G1tvCD2mK0Vs4fuoQtuAGdLau0BRe_G/view?usp=drive_link)
 - 📄 [Fruit and Seeds – Brief](https://drive.google.com/file/d/1sYYfDDZGrl8nCYYVxXNjQQU2hbYGAf-W/view?usp=drive_link)
-- 📄 [Fruit and Seeds – Presentation](https://drive.google.com/file/d/1mrcyIECIVSkMXpEi7BQgvqYAlQXJRmZ-/view?usp=drive_link)
+- 📄 [Fruit and Seeds – Presentation](https://www.canva.com/design/DAGlQuA9sYM/6uJN5PXynlnc-E4y_ZPHEw/edit?utm_content=DAGlQuA9sYM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ---
 
