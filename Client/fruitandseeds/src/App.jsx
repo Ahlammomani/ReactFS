@@ -23,6 +23,7 @@ function App() {
         {/* <Route path="/settings" element={<Settings />} /> */}
         {/* <Route path="/cart" element={<Cart />} /> */}
       </Routes>
+      
     </Router>
   );
 }

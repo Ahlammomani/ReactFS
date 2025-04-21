@@ -40,15 +40,10 @@ Fruit and Seeds is a healthy dessert e-commerce platform that offers homemade, g
 ## 📌 Useful Links
 
 - 🎯 [Trello Board](https://trello.com/b/GZRGKhdx/fruit-and-seeds-final-project)
-- 🎨 [Figma Design](https://www.figma.com/design/vJhWAnQ7QiXbnoS8LWf2BP/Fruit-and-Seeds-%E2%80%93-Final-Project?node-id=0-1&p=f&t=VFhyHOnQnpOAioCl-0)
+- 🎨 [Figma Design](https://www.figma.com/design/vJhWAnQ7QiXbnoS8LWf2BP/Fruit-and-Seeds-%E2%80%93-Final-Project?node-id=0-1&t=Gs0wEUQJMS0GEh09-1)
 
 ---
 
-## 👩‍💻 Contributors
-
-- [Your Name Here]
-
----
 
 ## 💡 Future Enhancements
 
