@@ -7,7 +7,8 @@ const { sequelize } = require("./models");
 const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
-
+const categoryRoutes = require("./routes/categoryRoutes");
+const productCategoryRoutes = require('./routes/ProductCategoryRoute');
 dotenv.config();
 
 const app = express();
@@ -35,3 +36,5 @@ app.listen(PORT, () => {
 // Routes
 app.use('/users', userRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use('/api/product-categories', productCategoryRoutes);

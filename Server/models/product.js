@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.TEXT,
     price: DataTypes.DECIMAL,
     categoryId: DataTypes.INTEGER,
-    image: DataTypes.STRING
+    quantity: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Product',
@@ -28,6 +28,16 @@ module.exports = (sequelize, DataTypes) => {
     Product.belongsTo(models.Category, { foreignKey: "categoryId" });
     Product.hasMany(models.Cart, { foreignKey: "productId" });
     Product.hasMany(models.OrderItem, { foreignKey: "productId" });
+    Product.hasMany(models.Review, {foreignKey: 'productId', as: 'reviews'});
+    Product.hasMany(models.Image, {
+      foreignKey: 'productId',
+      as: 'images'
+    });
+    Product.belongsToMany(models.Category, {
+      through: 'ProductCategories',
+      foreignKey: 'productId',
+      otherKey: 'categoryId',
+    });
   };
   
   return Product;

@@ -92,8 +92,12 @@ const MenuPage = () => {
                   className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#E7CCCC]"
                 >
                   <option value="">All Categories</option>
-                  <option value="1">Category 1</option>
-                  <option value="2">Category 2</option>
+                  <option value="Keto Treats">Keto Treats</option>
+                  <option value="Diabetic Treats">Diabetic Treats</option>
+                  <option value="Allergy-Friendly Treats">Allergy-Friendly Treats</option>
+                  <option value="Kids' Treats">Kids' Treats</option>
+                  <option value="Seasonal Treats">Seasonal Treats</option>
+                  <option value="Holiday Treats">Holiday Treats</option>
                 </select>
               </div>
               

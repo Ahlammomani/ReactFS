@@ -28,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function(models) {
     User.hasMany(models.Order, { foreignKey: "userId" });
     User.hasMany(models.Cart, { foreignKey: "userId" });
+    User.hasMany(models.Review, {
+      foreignKey: 'userId',
+      as: 'reviews'
+    });
   };
   
   return User;
