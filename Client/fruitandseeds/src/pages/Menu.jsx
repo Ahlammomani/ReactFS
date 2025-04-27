@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import menuImage from "../assets/menu.jpeg";
+import heroBackground from "../assets/contactus.jpeg";
 
 const MenuPage = () => {
-  // State for storing products
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   
-  // Get products from API when page loads
   useEffect(() => {
     fetchProducts();
   }, [search, category]);
@@ -52,23 +51,25 @@ const MenuPage = () => {
       <div className="absolute top-1/3 right-20 w-8 h-8 rounded-full bg-[#A5B68D] opacity-20"></div>
 
       <div className="container mx-auto px-4 py-8 relative z-10">
-        {/* Hero Section - Fixed to use image tag directly as shown in your example */}
-        <div className="relative w-full overflow-hidden mb-8 rounded-lg">
-          <div className="relative h-48 md:h-64">
+        {/* Hero Section with the new design */}
+        <div className="relative w-full overflow-hidden mb-8 rounded-xl shadow-lg">
+          <div className="relative h-64 md:h-80 lg:h-96">
             <img
-              src={menuImage}
-              alt="Recipe Index"
+              src={heroBackground}
+              alt="Recipe Background"
               className="w-full h-full object-cover"
             />
-            {/* Overlay and text */}
-            <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-              <h1 className="text-4xl font-serif text-white relative z-10 tracking-wider">RECIPE INDEX</h1>
+            <div className="absolute inset-0 bg-black/30 flex flex-col items-center justify-center p-6 text-center">
+              <h1 className="text-4xl md:text-5xl font-serif text-white mb-4 tracking-wider">RECIPE INDEX</h1>
+              <p className="text-lg text-white/90 max-w-2xl">
+                Discover our collection of delicious recipes for every occasion
+              </p>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col md:flex-row gap-6">
-          {/* Filter Sidebar with Search and Category */}
+          {/* Filter Sidebar - Keeping your original style */}
           <div className="w-full md:w-64 flex-shrink-0">
             <div className="bg-white rounded-lg shadow-md p-4 mb-4">
               {/* Search Input */}
@@ -110,29 +111,78 @@ const MenuPage = () => {
             </div>
           </div>
 
-          {/* Main Content */}
+          {/* Main Content with the new card design */}
           <div className="flex-1">
             {/* Recipe Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {products.map((product) => (
-                <div key={product.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
+            {products.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {products.map((product) => (
                   <div 
-                    className="h-48 overflow-hidden cursor-pointer"
-                    onClick={() => handleProductClick(product.id)}
+                    key={product.id} 
+                    className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-[#F0F0F0]"
                   >
-                    <img 
-                      src={`http://localhost:5000/uploads/${product.image}`} 
-                      alt={product.name} 
-                      className="w-full h-full object-cover transform hover:scale-105 transition duration-300"
-                    />
+                    <div 
+                      className="h-48 overflow-hidden cursor-pointer relative group"
+                      onClick={() => handleProductClick(product.id)}
+                    >
+                      <img 
+                        src={`http://localhost:5000/uploads/${product.image}`} 
+                        alt={product.name} 
+                        className="w-full h-full object-cover transform group-hover:scale-110 transition duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4">
+                        <h3 className="text-white font-medium text-xl">{product.name}</h3>
+                      </div>
+                    </div>
+                    <div className="p-5">
+                      <p className="text-sm text-gray-600 line-clamp-2 mb-3">{product.description}</p>
+                      <div className="flex justify-between items-center">
+                        <div className="flex flex-wrap gap-2">
+                          {product.categories?.map(cat => (
+                            <span 
+                              key={cat.id} 
+                              className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A5B68D]/20 text-[#A5B68D]"
+                            >
+                              {cat.name}
+                            </span>
+                          ))}
+                        </div>
+                        <button 
+                          onClick={() => handleProductClick(product.id)}
+                          className="text-[#E7CCCC] hover:text-[#C1CFA1] text-sm font-medium"
+                        >
+                          View Recipe →
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                  <div className="p-4 text-center">
-                    <h3 className="text-sm font-medium text-[#A5B68D] hover:text-[#E7CCCC] transition">{product.name}</h3>
-                    <p className="text-xs text-gray-600 mt-1">{product.description}</p>
-                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-16 bg-white rounded-xl shadow-sm border border-[#F0F0F0]">
+                <div className="mx-auto h-24 w-24 bg-[#A5B68D]/10 rounded-full flex items-center justify-center mb-4">
+                  <svg 
+                    className="h-12 w-12 text-[#A5B68D]" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24" 
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                 </div>
-              ))}
-            </div>
+                <h3 className="mt-2 text-lg font-medium text-gray-900">No recipes found</h3>
+                <p className="mt-1 text-sm text-gray-500">Try adjusting your search or filter criteria</p>
+                <div className="mt-6">
+                  <button
+                    onClick={resetFilters}
+                    className="inline-flex items-center px-5 py-2.5 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-[#A5B68D] hover:bg-[#C1CFA1] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A5B68D]"
+                  >
+                    Reset All Filters
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -17,4 +17,7 @@ router.get('/profile', protect, (req, res) => {
   res.json({ message: 'مرحبًا بك في ملفك الشخصي', user: req.user });
 });
 
+// Google login
+router.post("/google-login", googleLogin);
+
 module.exports = router;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect} from "react";
 import API from "../api";
 import { useNavigate } from "react-router-dom";
 
@@ -17,13 +17,13 @@ const Signup = () => {
     }
   };
 
-  const handleGoogleSignup = async () => {
-    try {
-      window.location.href = `${API.defaults.baseURL}/auth/google`;
-    } catch (err) {
-      setError("Failed to connect with Google");
-    }
-  };
+  // const handleGoogleSignup = async () => {
+  //   try {
+  //     window.location.href = `${API.defaults.baseURL}/auth/google`;
+  //   } catch (err) {
+  //     setError("Failed to connect with Google");
+  //   }
+  // };
 
   const handleFacebookSignup = async () => {
     try {
@@ -31,6 +31,31 @@ const Signup = () => {
     } catch (err) {
       setError("Failed to connect with Facebook");
     }
+  };
+
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.defer = true;
+    script.onload = () => {
+      window.google.accounts.id.initialize({
+        client_id:
+          "395531198719-9j7rsgfooiro6dignca9k6684h4c8lqv.apps.googleusercontent.com",
+        callback: handleGoogleLogin,
+        ux_mode: "popup",
+      });
+
+      window.google.accounts.id.renderButton(
+        document.getElementById("google-signin-btn"),
+        { theme: "filled_black", size: "large" }
+      );
+    };
+    document.body.appendChild(script);
+  }, [navigate]);
+
+  const handleGoogleLogin = async (response) => {
   };
 
   return (
@@ -123,9 +148,11 @@ const Signup = () => {
           </div>
           
           <div className="grid grid-cols-2 gap-3">
+
             <button 
               type="button" 
-              onClick={handleGoogleSignup}
+              onClick={handleGoogleLogin}
+              id="google-signin-btn"
               className="flex items-center justify-center p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
             >
               <svg className="h-5 w-5 text-[#97BE5A]" fill="currentColor" viewBox="0 0 24 24">

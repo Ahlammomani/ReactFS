@@ -12,6 +12,7 @@ import Navbar from "./Components/Navbar";
 import Profile from "./pages/Profile";
 import Admin from "./pages/Admin/Dashboard";
 import Footer from "./Components/Footer";
+import WhatsApp from "./Components/WhatsApp";
 
 const ConditionalLayout = ({ children }) => {
   const location = useLocation();
@@ -55,7 +56,13 @@ function App() {
       </Routes>
       </Suspense>
       </ConditionalLayout>
-      
+      <WhatsApp
+          position={{ bottom: "20px", right: "100px" }} // Offset to avoid overlap with chatbot
+          phoneNumber="+962777730914" // Replace with your actual WhatsApp number
+          profileName="Fruit and seeds"
+          profileImage="../assets/logo.png" // Replace with your actual profile image URL
+          welcomeText="Need direct assistance? Our farm experts are ready to help!"
+        />
     </Router>
   );
 }
