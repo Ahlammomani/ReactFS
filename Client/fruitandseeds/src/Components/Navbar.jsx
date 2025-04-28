@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from "../assets/logo.png";
+import { useCookies } from 'react-cookie';
+import { FaShoppingCart, FaUser } from 'react-icons/fa';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false); // يمكن تغيير هذه الحالة بناءً على حالة المصادقة الفعلية
+  const [cookies, setCookie, removeCookie] = useCookies(['user']);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if user cookie exists on component mount
+    setIsUserLoggedIn(!!cookies.user);
+  }, [cookies.user]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -17,10 +25,11 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    // هنا يمكنك إضافة منطق تسجيل الخروج
+    // Remove user cookie and update state
+    removeCookie('user', { path: '/' });
     setIsUserLoggedIn(false);
     setIsProfileDropdownOpen(false);
-    navigate('/login');
+    navigate('/');
   };
 
   return (
@@ -33,7 +42,15 @@ const Navbar = () => {
         </Link>
         
         {/* User Profile / Join Us Button Section */}
-        <div className="flex items-center md:order-2">
+        <div className="flex items-center md:order-2 space-x-4">
+          {isUserLoggedIn && (
+            <Link to="/cart" className="relative text-[#97BE5A] hover:text-[#FF8BA7] transition-colors">
+              <FaShoppingCart className="w-6 h-6" />
+              {/* يمكنك إضافة عداد للعناصر هنا إذا أردت */}
+              {/* <span className="absolute -top-2 -right-2 bg-[#FF8BA7] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">3</span> */}
+            </Link>
+          )}
+          
           {isUserLoggedIn ? (
             <div className="relative">
               <button 
@@ -43,29 +60,44 @@ const Navbar = () => {
                 aria-expanded={isProfileDropdownOpen}
               >
                 <span className="sr-only">Open user menu</span>
-                <img className="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo" />
+                <FaUser className="w-8 h-8 p-1.5 text-[#FDFAF6]" />
               </button>
               
               {/* Dropdown menu */}
               {isProfileDropdownOpen && (
                 <div className="absolute right-0 z-50 mt-2 w-48 bg-[#FDFAF6] rounded-lg shadow-lg divide-y divide-[#FF8BA7]">
                   <div className="px-4 py-3">
-                    <span className="block text-sm font-medium text-[#97BE5A]">Bonnie Green</span>
-                    <span className="block text-sm text-[#97BE5A] truncate">name@flowbite.com</span>
+                    <span className="block text-sm font-medium text-[#97BE5A]">
+                      {cookies.user?.firstName || 'User'}
+                    </span>
+                    <span className="block text-sm text-[#97BE5A] truncate">
+                      {cookies.user?.email || ''}
+                    </span>
                   </div>
                   <ul className="py-2">
                     <li>
-                      <Link to="/settings" className="block px-4 py-2 text-sm text-[#97BE5A] hover:bg-[#FF8BA7] hover:text-[#97BE5A]" onClick={() => setIsProfileDropdownOpen(false)}>
-                        Settings
+                      <Link 
+                        to="/profile" 
+                        className="block px-4 py-2 text-sm text-[#97BE5A] hover:bg-[#FF8BA7] hover:text-[#FDFAF6]" 
+                        onClick={() => setIsProfileDropdownOpen(false)}
+                      >
+                        Profile
                       </Link>
                     </li>
                     <li>
-                      <Link to="/cart" className="block px-4 py-2 text-sm text-[#97BE5A] hover:bg-[#FF8BA7] hover:text-[#97BE5A]" onClick={() => setIsProfileDropdownOpen(false)}>
-                        Cart
+                      <Link 
+                        to="/orders" 
+                        className="block px-4 py-2 text-sm text-[#97BE5A] hover:bg-[#FF8BA7] hover:text-[#FDFAF6]" 
+                        onClick={() => setIsProfileDropdownOpen(false)}
+                      >
+                        My Orders
                       </Link>
                     </li>
                     <li>
-                      <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-sm text-[#97BE5A] hover:bg-[#FF8BA7] hover:text-[#97BE5A]">
+                      <button 
+                        onClick={handleLogout} 
+                        className="block w-full text-left px-4 py-2 text-sm text-[#97BE5A] hover:bg-[#FF8BA7] hover:text-[#FDFAF6]"
+                      >
                         Log out
                       </button>
                     </li>

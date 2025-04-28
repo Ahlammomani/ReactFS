@@ -13,6 +13,7 @@ import Profile from "./pages/Profile";
 import Admin from "./pages/Admin/Dashboard";
 import Footer from "./Components/Footer";
 import WhatsApp from "./Components/WhatsApp";
+import { CookiesProvider } from 'react-cookie';
 
 const ConditionalLayout = ({ children }) => {
   const location = useLocation();
@@ -39,6 +40,7 @@ const ConditionalLayout = ({ children }) => {
 
 function App() {
   return (
+    <CookiesProvider>
     <Router>
       <ConditionalLayout>
       <Suspense fallback={<div>Loading...</div>}>
@@ -64,6 +66,7 @@ function App() {
           welcomeText="Need direct assistance? Our farm experts are ready to help!"
         />
     </Router>
+    </CookiesProvider>
   );
 }
 

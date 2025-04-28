@@ -7,7 +7,7 @@ const AddProduct = ({ onClose }) => {
     name: "",
     description: "",
     price: "",
-    categoryId: [],
+    categoryIds: [],
     quantity: 1,
     image: [],
   });
@@ -35,14 +35,13 @@ const AddProduct = ({ onClose }) => {
       // إنشاء معاينة للصور
       const previews = selectedFiles.map(file => URL.createObjectURL(file));
       setImagePreviews(previews);
-    } else if (name === "categoryId") {
+    } else if (name === "categoryIds") {
       const selectedCategories = Array.from(e.target.selectedOptions, option => option.value);
-      setFormData({ ...formData, categoryId: selectedCategories });
+      setFormData({ ...formData, categoryIds: selectedCategories });
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -51,30 +50,27 @@ const AddProduct = ({ onClose }) => {
       data.append("description", formData.description);
       data.append("price", formData.price);
       data.append("quantity", formData.quantity);
-      formData.categoryId.forEach(category => data.append("categoryId[]", category));
+  
+      // 🔥 Update this line
+      formData.categoryIds.forEach(categoryIds => data.append("categoryIds[]", categoryIds));
+  
       formData.image.forEach(image => data.append("image", image));
-
+  
       await axios.post("http://localhost:5000/api/products", data, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-
+  
       onClose();
     } catch (error) {
       console.error("خطأ أثناء إضافة المنتج", error);
     }
   };
-
-  // Handle backdrop click to close
-  const handleBackdropClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
+  
 
   return (
     <div
       className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50 transition-opacity duration-300"
-      onClick={handleBackdropClick}
+      
     >
       <div className="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden border border-gray-100">
         {/* Header */}
@@ -153,8 +149,8 @@ const AddProduct = ({ onClose }) => {
               <label className="block text-sm font-medium text-gray-700">Category</label>
               <div className="relative">
                 <select
-                  name="categoryId"
-                  value={formData.categoryId}
+                  name="categoryIds"
+                  value={formData.categoryIds}
                   onChange={handleChange}
                   multiple
                   className="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#97BE5A] focus:border-transparent bg-gray-50 appearance-none"

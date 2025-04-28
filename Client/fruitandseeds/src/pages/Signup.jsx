@@ -1,29 +1,33 @@
-import { useState,useEffect} from "react";
+import { useState, useEffect } from "react";
 import API from "../api";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 const Signup = () => {
   const [user, setUser] = useState({ firstName: "", lastName: "", email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies(['user']);
 
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await API.post("/users/signup", user);
-      navigate("/login");
+      const response = await API.post("/users/signup", user);
+      // Set user cookie after successful signup
+      setCookie('user', response.data.user, { path: '/' });
+      navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || "An error occurred!");
     }
   };
 
-  // const handleGoogleSignup = async () => {
-  //   try {
-  //     window.location.href = `${API.defaults.baseURL}/auth/google`;
-  //   } catch (err) {
-  //     setError("Failed to connect with Google");
-  //   }
-  // };
+  const handleGoogleSignup = async () => {
+    try {
+      window.location.href = `${API.defaults.baseURL}/auth/google`;
+    } catch (err) {
+      setError("Failed to connect with Google");
+    }
+  };
 
   const handleFacebookSignup = async () => {
     try {

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import menuImage from "../assets/menu.jpeg";
 import heroBackground from "../assets/contactus.jpeg";
+import { Link } from 'react-router-dom';
 
 const MenuPage = () => {
   const [products, setProducts] = useState([]);

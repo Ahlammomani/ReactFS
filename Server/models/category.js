@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       as: 'reviews'
     });
     Category.belongsToMany(models.Product, {
-      through: 'ProductCategories',
+      through: 'ProductCategory',
       foreignKey: 'categoryId'
     });
   };

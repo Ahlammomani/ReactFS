@@ -1,17 +1,21 @@
 import { useState } from "react";
 import API from "../api";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from 'react-cookie';
 
 const Login = () => {
   const [user, setUser] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies(['user']);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await API.post("/users/login", user);
-      navigate("/profile");
+      const response = await API.post("/users/login", user);
+      // Set user cookie after successful login
+      setCookie('user', response.data.user, { path: '/' });
+      navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || "An error occurred!");
     }
